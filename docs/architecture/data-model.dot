@@ -1,0 +1,142 @@
+digraph schema {
+  graph [rankdir=LR, splines=spline, nodesep=0.8, ranksep=2.4, bgcolor="white",
+         fontname="Helvetica", pad=0.4, concentrate=false]
+  node  [shape=plain, fontname="Helvetica", fontsize=11]
+  edge  [color="#94a3b8", penwidth=1.3, dir=both, arrowsize=0.9]
+
+  organizations [label=<
+    <TABLE BORDER="1" COLOR="#cbd5e1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#be123c" COLSPAN="3" ALIGN="LEFT"><FONT COLOR="#ffffff" POINT-SIZE="13"><B>organizations</B></FONT></TD></TR>
+      <TR><TD PORT="id" ALIGN="LEFT"><B>id</B></TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigserial</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#475569" POINT-SIZE="9"><B>PK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">name</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD ALIGN="LEFT">tax_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#94a3b8" POINT-SIZE="9">null</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">active</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">boolean</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD PORT="organization_creator" ALIGN="LEFT">created_by</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">timestamptz</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+    </TABLE>>]
+
+  users [label=<
+    <TABLE BORDER="1" COLOR="#cbd5e1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#475569" COLSPAN="3" ALIGN="LEFT"><FONT COLOR="#ffffff" POINT-SIZE="13"><B>users</B></FONT></TD></TR>
+      <TR><TD PORT="id" ALIGN="LEFT"><B>id</B></TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigserial</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#475569" POINT-SIZE="9"><B>PK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">name</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD ALIGN="LEFT">email</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">password_hash</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">timestamptz</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+    </TABLE>>]
+
+  memberships [label=<
+    <TABLE BORDER="1" COLOR="#cbd5e1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#475569" COLSPAN="3" ALIGN="LEFT"><FONT COLOR="#ffffff" POINT-SIZE="13"><B>memberships</B></FONT></TD></TR>
+      <TR><TD PORT="id" ALIGN="LEFT"><B>id</B></TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigserial</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#475569" POINT-SIZE="9"><B>PK</B></FONT></TD></TR>
+      <TR><TD PORT="organization_id" ALIGN="LEFT">organization_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT> <FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+      <TR><TD PORT="user_id" ALIGN="LEFT">user_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT> <FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">role</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#b45309" POINT-SIZE="9"><B>CHK</B></FONT></TD></TR>
+      <TR><TD PORT="membership_granted_by" ALIGN="LEFT">created_by</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">timestamptz</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+    </TABLE>>]
+
+  business_units [label=<
+    <TABLE BORDER="1" COLOR="#cbd5e1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#0f766e" COLSPAN="3" ALIGN="LEFT"><FONT COLOR="#ffffff" POINT-SIZE="13"><B>business_units</B></FONT></TD></TR>
+      <TR><TD PORT="id" ALIGN="LEFT"><B>id</B></TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigserial</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#475569" POINT-SIZE="9"><B>PK</B></FONT></TD></TR>
+      <TR><TD PORT="organization_id" ALIGN="LEFT">organization_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT> <FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">name</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">active</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">boolean</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+    </TABLE>>]
+
+  product_categories [label=<
+    <TABLE BORDER="1" COLOR="#cbd5e1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#0f766e" COLSPAN="3" ALIGN="LEFT"><FONT COLOR="#ffffff" POINT-SIZE="13"><B>product_categories</B></FONT></TD></TR>
+      <TR><TD PORT="id" ALIGN="LEFT"><B>id</B></TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigserial</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#475569" POINT-SIZE="9"><B>PK</B></FONT></TD></TR>
+      <TR><TD PORT="organization_id" ALIGN="LEFT">organization_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT> <FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">name</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+    </TABLE>>]
+
+  import_batches [label=<
+    <TABLE BORDER="1" COLOR="#cbd5e1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#b45309" COLSPAN="3" ALIGN="LEFT"><FONT COLOR="#ffffff" POINT-SIZE="13"><B>import_batches</B></FONT></TD></TR>
+      <TR><TD PORT="id" ALIGN="LEFT"><B>id</B></TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigserial</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#475569" POINT-SIZE="9"><B>PK</B></FONT></TD></TR>
+      <TR><TD PORT="organization_id" ALIGN="LEFT">organization_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">file_name</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD PORT="uploaded_by" ALIGN="LEFT">uploaded_by</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">uploaded_at</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">timestamptz</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#0f766e" POINT-SIZE="9"><B>IDX</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">status</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#b45309" POINT-SIZE="9"><B>CHK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">total_records</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">int</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD ALIGN="LEFT">valid_records</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">int</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD ALIGN="LEFT">error_records</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">int</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD ALIGN="LEFT">duplicate_records</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">int</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+    </TABLE>>]
+
+  import_errors [label=<
+    <TABLE BORDER="1" COLOR="#cbd5e1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#b45309" COLSPAN="3" ALIGN="LEFT"><FONT COLOR="#ffffff" POINT-SIZE="13"><B>import_errors</B></FONT></TD></TR>
+      <TR><TD PORT="id" ALIGN="LEFT"><B>id</B></TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigserial</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#475569" POINT-SIZE="9"><B>PK</B></FONT></TD></TR>
+      <TR><TD PORT="organization_id" ALIGN="LEFT">organization_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD PORT="import_batch_id" ALIGN="LEFT">import_batch_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">kind</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#b45309" POINT-SIZE="9"><B>CHK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">row_number</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">int</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD ALIGN="LEFT">column_name</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#94a3b8" POINT-SIZE="9">null</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">error_message</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD ALIGN="LEFT">raw_value</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#94a3b8" POINT-SIZE="9">null</FONT></TD></TR>
+    </TABLE>>]
+
+  sales_records [label=<
+    <TABLE BORDER="1" COLOR="#a5b4fc" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#4338ca" COLSPAN="3" ALIGN="LEFT"><FONT COLOR="#ffffff" POINT-SIZE="13"><B>sales_records</B></FONT></TD></TR>
+      <TR><TD PORT="id" ALIGN="LEFT"><B>id</B></TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigserial</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#475569" POINT-SIZE="9"><B>PK</B></FONT></TD></TR>
+      <TR><TD PORT="organization_id" ALIGN="LEFT">organization_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">sale_date</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">date</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#0f766e" POINT-SIZE="9"><B>IDX</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">value</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">numeric(12,2)</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD PORT="category_id" ALIGN="LEFT">category_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD PORT="business_unit_id" ALIGN="LEFT">business_unit_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">client_name</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#94a3b8" POINT-SIZE="9">null</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">notes</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#94a3b8" POINT-SIZE="9">null</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">origin</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">text</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#b45309" POINT-SIZE="9"><B>CHK</B></FONT></TD></TR>
+      <TR><TD PORT="import_batch_id" ALIGN="LEFT">import_batch_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT> <FONT COLOR="#94a3b8" POINT-SIZE="9">null</FONT></TD></TR>
+      <TR><TD PORT="record_creator" ALIGN="LEFT">created_by</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD PORT="updated_by" ALIGN="LEFT">updated_by</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT> <FONT COLOR="#94a3b8" POINT-SIZE="9">null</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">timestamptz</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD ALIGN="LEFT">updated_at</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">timestamptz</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD ALIGN="LEFT">deleted_at</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">timestamptz</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#94a3b8" POINT-SIZE="9">null</FONT></TD></TR>
+    </TABLE>>]
+
+  sales_goals [label=<
+    <TABLE BORDER="1" COLOR="#cbd5e1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#7e22ce" COLSPAN="3" ALIGN="LEFT"><FONT COLOR="#ffffff" POINT-SIZE="13"><B>sales_goals</B></FONT></TD></TR>
+      <TR><TD PORT="id" ALIGN="LEFT"><B>id</B></TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigserial</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#475569" POINT-SIZE="9"><B>PK</B></FONT></TD></TR>
+      <TR><TD PORT="organization_id" ALIGN="LEFT">organization_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT> <FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+      <TR><TD PORT="business_unit_id" ALIGN="LEFT">business_unit_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT> <FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+      <TR><TD PORT="category_id" ALIGN="LEFT">category_id</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT> <FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">year</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">int</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">month</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">int</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#0f766e" POINT-SIZE="9"><B>UK</B></FONT> <FONT COLOR="#b45309" POINT-SIZE="9"><B>CHK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">target_value</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">numeric(12,2)</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+      <TR><TD PORT="updated_by" ALIGN="LEFT">updated_by</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">bigint</FONT></TD><TD ALIGN="LEFT"><FONT COLOR="#4338ca" POINT-SIZE="9"><B>FK</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT">updated_at</TD><TD ALIGN="LEFT"><FONT COLOR="#64748b">timestamptz</FONT></TD><TD ALIGN="LEFT"></TD></TR>
+    </TABLE>>]
+
+  organizations:id:e -> memberships:organization_id:w [arrowtail=tee, arrowhead=crow, color="#be123c"]
+  users -> organizations [arrowtail=tee, arrowhead=crow, color="#94a3b8"]
+  organizations:id:e -> business_units:organization_id:w [arrowtail=tee, arrowhead=crow, color="#be123c"]
+  organizations:id:e -> product_categories:organization_id:w [arrowtail=tee, arrowhead=crow, color="#be123c"]
+  organizations:id:e -> import_batches:organization_id:w [arrowtail=tee, arrowhead=crow, color="#be123c"]
+  organizations:id:e -> import_errors:organization_id:w [arrowtail=tee, arrowhead=crow, color="#be123c"]
+  organizations:id:e -> sales_records:organization_id:w [arrowtail=tee, arrowhead=crow, color="#be123c"]
+  organizations:id:e -> sales_goals:organization_id:w [arrowtail=tee, arrowhead=crow, color="#be123c"]
+  users:id:e -> memberships:user_id:w [arrowtail=tee, arrowhead=crow, color="#94a3b8"]
+  users:id:e -> memberships:membership_granted_by:w [arrowtail=tee, arrowhead=crow, color="#94a3b8"]
+  users:id:e -> import_batches:uploaded_by:w [arrowtail=tee, arrowhead=crow, color="#94a3b8"]
+  users:id:e -> sales_records:record_creator:w [arrowtail=tee, arrowhead=crow, color="#94a3b8"]
+  users:id:e -> sales_records:"updated_by":w [arrowtail=tee, arrowhead=crowodot, color="#94a3b8"]
+  users:id:e -> sales_goals:updated_by:w [arrowtail=tee, arrowhead=crow, color="#94a3b8"]
+  business_units:id:e -> sales_records:business_unit_id:w [arrowtail=tee, arrowhead=crow, color="#0f766e"]
+  business_units:id:e -> sales_goals:business_unit_id:w [arrowtail=tee, arrowhead=crow, color="#0f766e"]
+  product_categories:id:e -> sales_records:category_id:w [arrowtail=tee, arrowhead=crow, color="#0f766e"]
+  product_categories:id:e -> sales_goals:category_id:w [arrowtail=tee, arrowhead=crow, color="#0f766e"]
+  import_batches:id:e -> import_errors:import_batch_id:w [arrowtail=tee, arrowhead=crow, color="#b45309"]
+  import_batches:id:e -> sales_records:import_batch_id:w [arrowtail=tee, arrowhead=crowodot, color="#b45309"]
+
+  {rank=same; organizations; users}
+  {rank=same; memberships; business_units; product_categories; import_batches}
+  {rank=same; sales_records; sales_goals; import_errors}
+}
