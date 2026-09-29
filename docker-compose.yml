@@ -1,62 +1,10 @@
+version: '3.8'
 services:
   db:
-    image: postgres:17-alpine
+    image: postgres:15
     environment:
-      POSTGRES_DB: projetopiloto
-      POSTGRES_USER: projetopiloto
-      POSTGRES_PASSWORD: projetopiloto
+      POSTGRES_USER: usuario_teste
+      POSTGRES_PASSWORD: senha_secreta
+      POSTGRES_DB: uow_db
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
-      interval: 5s
-      timeout: 3s
-      retries: 10
-
-  migrate:
-    build: ./api
-    command: ["alembic", "upgrade", "head"]
-    environment:
-      APP_ENV: development
-      DATABASE_URL: postgresql+psycopg://projetopiloto:projetopiloto@db:5432/projetopiloto
-      CORS_ORIGINS: http://localhost:3000
-      JWT_SECRET: local-development-only-change-this-secret-key
-    depends_on:
-      db:
-        condition: service_healthy
-
-  api:
-    build: ./api
-    environment:
-      APP_ENV: development
-      DATABASE_URL: postgresql+psycopg://projetopiloto:projetopiloto@db:5432/projetopiloto
-      CORS_ORIGINS: http://localhost:3000
-      JWT_SECRET: local-development-only-change-this-secret-key
-    ports:
-      - "8000:8000"
-    depends_on:
-      db:
-        condition: service_healthy
-      migrate:
-        condition: service_completed_successfully
-    healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
-      interval: 10s
-      timeout: 3s
-      retries: 3
-
-  web:
-    build: ./web
-    ports:
-      - "3000:3000"
-    depends_on:
-      api:
-        condition: service_healthy
-
-  worker:
-    build: ./worker
-
-volumes:
-  postgres_data:
