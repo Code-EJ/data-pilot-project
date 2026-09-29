@@ -18,6 +18,12 @@ class Settings(BaseSettings):
         min_length=32,
     )
 
+    jwt_algorithm: str = "HS256"
+
+    jwt_cookie_name: str = "access-token"
+
+    jwt_expiration_seconds: int = 28800
+
     @field_validator("cors_origins", mode="before")
     @classmethod
     def split_cors_origins(cls, value: str | list[str]) -> list[str]:

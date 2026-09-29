@@ -6,4 +6,5 @@ web/.next/
 .claude
 .cursor
 .codex
+.venv/
 
