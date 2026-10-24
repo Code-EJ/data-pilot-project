@@ -17,4 +17,13 @@ Responsabilidades:
 
 **Regra que não pode ser esquecida:** toda consulta de dado de negócio filtra por `organization_id` (da sessão, nunca do cliente) e por `deleted_at is null` ([ADR-0014](../docs/adr/0014-escopo-por-empresa-organizations.md)). Por isso as queries vivem numa camada de repositório, não espalhadas pelos handlers — ver [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-Ainda não inicializado — próximo passo é montar o projeto FastAPI aqui.
+## Padrão de Resposta de Erros da API
+
+Para evitar exposição de dados sensíveis e facilitar o tratamento no front-end, todas as respostas de erro da API seguem um contrato único. O formato base é:
+
+```json
+{
+  "code": "string_com_o_codigo_do_erro",
+  "message": "Mensagem amigável que pode ser exibida ao usuário final",
+  "fields": { "nome_do_campo": "motivo da falha" } // Opcional, presente apenas no erro 422
+}
