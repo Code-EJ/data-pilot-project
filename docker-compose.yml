@@ -1,10 +1,19 @@
-version: '3.8'
 services:
   db:
-    image: postgres:15
+    image: postgres:17-alpine
     environment:
-      POSTGRES_USER: usuario_teste
-      POSTGRES_PASSWORD: senha_secreta
-      POSTGRES_DB: uow_db
+      POSTGRES_USER: projetopiloto
+      POSTGRES_PASSWORD: projetopiloto
+      POSTGRES_DB: projetopiloto
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  postgres_data:
